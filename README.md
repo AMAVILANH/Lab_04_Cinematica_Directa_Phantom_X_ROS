@@ -16,7 +16,7 @@
 
 Este proyecto está desarrollado en **ROS 2 Humble**, y usa el paquete `dynamixel_sdk` para la comunicación con los motores del manipulador.
 Para lanzar el sistema completo:
-```bash
+
 ros2 launch phanthon_control macarena.py
 
 
