@@ -47,6 +47,7 @@ flowchart TD
     H2 --> Z
     H3 --> Z
     H4 --> Z
+```
 
 ## Configuración ROS 2 - `macarena`
 
