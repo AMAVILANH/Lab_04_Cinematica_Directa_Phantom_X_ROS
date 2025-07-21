@@ -248,9 +248,8 @@ Esta función se usa para configurar torques, mover motores a HOME y moverlos a 
 
 ---
 
-### Función 
 
-### Video de ejecución secuencial
+### Video demostrativo
 
 A continuación, se presenta el video de demostración con las poses programadas para el robot PhantomX Pincher X100:
 
@@ -263,10 +262,5 @@ A continuación, se presenta el video de demostración con las poses programadas
 
 A continuación se muestra una tabla con las comparaciones entre la simulación digital y la fotografía real del manipulador:
 
-
-
----
-
-## Conclusiones
 
 
