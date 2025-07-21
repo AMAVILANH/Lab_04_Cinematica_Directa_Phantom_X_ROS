@@ -2,11 +2,11 @@
 ## PhantomX Pincher X100 | Mecatrónica UNAL 2025-I
 
 ### Integrantes del Grupo
-
+Esta práctica se llevó a cabo con la participación conjunta de los integrantes de dos grupos de laboratorio.
 
 | Andrés Mauricio Avilán |
 | Juan David Meza |
-| Hector Andres.. |
+| Hector Andrés Aponte Porras.. |
 | Juan Manuel .. |
 
 ---
