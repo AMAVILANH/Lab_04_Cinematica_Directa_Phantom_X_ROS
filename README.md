@@ -15,7 +15,6 @@ Esta práctica se llevó a cabo con la participación conjunta de los integrante
 
 El modelado matemático del manipulador incluye:
 
-- Diagrama robot`
 
 
 
