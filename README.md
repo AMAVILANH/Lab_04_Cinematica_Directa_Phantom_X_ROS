@@ -15,7 +15,7 @@ Esta práctica se llevó a cabo con la participación conjunta de los integrante
 
 El modelado matemático del manipulador incluye:
 
-
+![Foto 1](Imagenes/01.jpg)
 
 
 ## Tabla de parámetros DH estándar (Denavit–Hartenberg)
@@ -262,7 +262,6 @@ A continuación, se presenta el video de demostración con las poses programadas
 
 A continuación se muestra una tabla con las comparaciones entre la simulación digital y la fotografía real del manipulador:
 
-![Foto 1](Imagenes/01.jpg)
 ![Foto 2](Imagenes/Panthom01.jpg)
 ![Foto 3](Imagenes/Panthom02.jpg)
 ![Foto 4](Imagenes/Panthom03.jpg)
