@@ -161,10 +161,19 @@ if __name__ == '__main__':
 
 **Parámetros:**
 
-- `comando`: Descripcion.
-- `comando`: Descripcion.
-- `comando`: Descripcion.
-
+- `port = PortHandler(port_name)
+packet = PacketHandler(1.0)
+`: El código usa dynamixel_sdk para conectarse con los motores mediante un puerto serie (/dev/ttyUSB0) y una velocidad de transmisión de 1 Mbps. Esto es esencial para que la comunicación entre el controlador y los servomotores sea posible.
+- `ADDR_TORQUE_ENABLE = 24
+ADDR_GOAL_POSITION = 30
+ADDR_MOVING_SPEED = 32
+ADDR_TORQUE_LIMIT  = 34
+`: Estas direcciones son necesarias para enviar comandos correctos a cada motor, como habilitar torque, establecer velocidad, límite de torque y posición.
+- `packet.write2ByteTxRx(..., ADDR_GOAL_POSITION, home_pos[i])
+...
+packet.write2ByteTxRx(..., ADDR_GOAL_POSITION, target_pos[i])
+`: Esto demuestra cómo se puede controlar directamente cada articulación de un brazo robótico, con temporización (time.sleep) entre comandos para permitir que los motores lleguen a su posición..
+- `class Macarena(Node):`: También, el uso de rclpy.init() y rclpy.shutdown() muestra cómo se gestiona el ciclo de vida del nodo, incluso si no hay suscriptores o editores, permitiendo control directo desde el nodo principal.
 Esta función se usa para configurar torques, mover motores a HOME y moverlos a poses específicas.
 
 ---
