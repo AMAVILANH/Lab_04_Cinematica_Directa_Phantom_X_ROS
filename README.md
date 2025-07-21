@@ -6,8 +6,8 @@ Esta práctica se llevó a cabo con la participación conjunta de los integrante
 
 | Andrés Mauricio Avilán |
 | Juan David Meza |
-| Hector Andrés Aponte Porras.. |
-| Juan Manuel .. |
+| Hector Andrés Aponte Porras |
+| Juan Manuel Barrero |
 
 ---
 
