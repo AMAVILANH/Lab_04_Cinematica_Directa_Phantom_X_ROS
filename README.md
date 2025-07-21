@@ -2,11 +2,11 @@
 ## PhantomX Pincher X100 | Mecatrónica UNAL 2025-I
 
 ### Integrantes del Grupo
-
+Esta práctica se llevó a cabo con la participación conjunta de los integrantes de dos grupos de laboratorio.
 
 | Andrés Mauricio Avilán |
 | Juan David Meza |
-| Hector Andres.. |
+| Hector Andrés Aponte Porras.. |
 | Juan Manuel .. |
 
 ---
@@ -19,7 +19,26 @@ El modelado matemático del manipulador incluye:
 
 
 
-- Tabla de parámetros DH estándar (Denavit–Hartenberg)
+## Tabla de parámetros DH estándar (Denavit–Hartenberg)
+
+  Este modelo representa el brazo robótico **Phantom X Pincher** utilizando la biblioteca `roboticstoolbox` de Peter Corke. Se basa en la convención **Denavit–Hartenberg (DH clásico)** para describir la cinemática directa del robot.
+
+### Descripción general
+
+- Se usa el modelo `DHRobot` con articulaciones `RevoluteDH`.
+- Las longitudes de los eslabones están en metros.
+- Se aplica un **offset de +90° (π/2 rad)** en la segunda articulación para alinear el modelo con la configuración real del robot.
+
+### Estructura del robot
+
+| Articulación | a [m]   | α [rad]  | d [m]    | θ [rad] (variable) | Offset [rad] |
+|--------------|---------|----------|----------|---------------------|--------------|
+| 1            | 0       | π/2      | 0.15205  | θ₁                  | 0            |
+| 2            | 0.13682 | 0        | 0        | θ₂                  | π/2          |
+| 3            | 0.07412 | 0        | 0        | θ₃                  | 0            |
+| 4            | 0.1084  | 0        | 0        | θ₄                  | 0            |
+
+> 💡 **Nota:** La cuarta articulación representa un eslabón final (efector) sin desplazamiento `d` ni torsión, pero con longitud `a` correspondiente al último tramo.
 
 ---
 
@@ -86,6 +105,58 @@ Para tener control preciso sobre las articulaciones, se midieron los límites de
 > Con esta tabla, fue posible establecer funciones de conversión entre grados ↔ pulsos para programar los movimientos con precisión, evitando zonas peligrosas de saturación o colisión entre eslabones.
 
 ---
+
+### Función Setup_py
+Este archivo setup.py es fundamental para definir cómo se construye, instala y ejecuta un paquete ROS 2 en Python:
+```Python
+
+from setuptools import find_packages, setup
+
+package_name = 'pincher_control'
+
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=find_packages(exclude=['test']),
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='juanmeza',
+    maintainer_email='juanmeza@todo.todo',
+    description='TODO: Package description',
+    license='TODO: License declaration',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'macarena = pincher_control.macarena:main',
+            'control_servo = pincher_control.control_servo:main',
+            'lumos = pincher_control.lumos:main',
+            'pentando = pincher_control.pentando:main'
+        ],
+    },
+)
+
+```
+
+**Parámetros**
+- `package_name = 'pincher_control'
+packages=find_packages(exclude=['test']),
+` : Se declara que el paquete se llama pincher_control y se incluyen todos los submódulos Python dentro de esa carpeta, excepto los de pruebas. Esto le dice a ROS 2 qué código debe incluir.
+
+- `entry_points={
+    'console_scripts': [
+        'macarena = pincher_control.macarena:main',
+        ...
+    ],
+}
+ros2 run pincher_control macarena
+` : Cada línea enlaza un alias ejecutable (macarena, control_servo, etc.) con una función main() ubicada dentro del respectivo módulo Python.
+---
+
 
 ### Función de Envío de Comandos
 
@@ -161,13 +232,24 @@ if __name__ == '__main__':
 
 **Parámetros:**
 
-- `comando`: Descripcion.
-- `comando`: Descripcion.
-- `comando`: Descripcion.
-
+- `port = PortHandler(port_name)
+packet = PacketHandler(1.0)
+`: El código usa dynamixel_sdk para conectarse con los motores mediante un puerto serie (/dev/ttyUSB0) y una velocidad de transmisión de 1 Mbps. Esto es esencial para que la comunicación entre el controlador y los servomotores sea posible.
+- `ADDR_TORQUE_ENABLE = 24
+ADDR_GOAL_POSITION = 30
+ADDR_MOVING_SPEED = 32
+ADDR_TORQUE_LIMIT  = 34
+`: Estas direcciones son necesarias para enviar comandos correctos a cada motor, como habilitar torque, establecer velocidad, límite de torque y posición.
+- `packet.write2ByteTxRx(..., ADDR_GOAL_POSITION, home_pos[i])
+...
+packet.write2ByteTxRx(..., ADDR_GOAL_POSITION, target_pos[i])
+`: Esto demuestra cómo se puede controlar directamente cada articulación de un brazo robótico, con temporización (time.sleep) entre comandos para permitir que los motores lleguen a su posición..
+- `class Macarena(Node):`: También, el uso de `rclpy.init()` y `rclpy.shutdown()` muestra cómo se gestiona el ciclo de vida del nodo, incluso si no hay suscriptores o editores, permitiendo control directo desde el nodo principal.
 Esta función se usa para configurar torques, mover motores a HOME y moverlos a poses específicas.
 
 ---
+
+### Función 
 
 ### Video de ejecución secuencial
 
